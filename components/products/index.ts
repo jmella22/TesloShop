@@ -1,2 +1,4 @@
-export * from "./ProducList";
-export * from "./ProducCard";
+export * from "./ProductCard";
+export * from "./ProductList";
+export * from "./ProductSizeSelector";
+export * from "./ProductSlideshow";

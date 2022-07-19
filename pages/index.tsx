@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { Typography } from "@mui/material";
 import { ShopLayout } from "../components/layouts";
-import { ProducList } from "../components/products";
+import { ProductList } from "../components/products";
 import { initialData } from "../database/products";
 
 const HomePage: NextPage = () => {
@@ -16,7 +16,7 @@ const HomePage: NextPage = () => {
       <Typography variant="h2" sx={{ mb: 1 }}>
         Todos los Productos
       </Typography>
-      <ProducList products={initialData.products as any} />
+      <ProductList products={initialData.products as any} />
     </ShopLayout>
   );
 };
