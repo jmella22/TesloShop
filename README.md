@@ -1,34 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- <div style="display:flex; justify-content:center; align-items:center; width:100%;"> -->
+<h1 > Next.js Teslo Shop</h1>
+<!-- </div> -->
 
-## Getting Started
+<p>Teslo Shop es una E-Comerce app creada en <b>Nextjs</b> escrita en <b>Typescript</b></p>
+<p>Se inspiro en la tienda de ropa de la empresa Tesla, es una</p>
+<p>Se puede encontrar las siguientes páginas:</p>
+<ul>
+<li><p><b>Home</b>: pagina donde se ve los productos, el navbar y el menu lateral</p></li>
+<li><p><b>product/[slug]</b>: pagina que meustra el detalle de cada producto seleccionado</p></li>
+</ul>
 
-First, run the development server:
+<h2>Get Start</h2>
+Los pasos para levantar el proyecto OpenJira en desarrollo usando docker, mongodb y nextjs:
 
-```bash
-npm run dev
-# or
-yarn dev
+### Levantar la base de datos
+
+```
+docker-compose up -d
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- El -d, significa **detache**
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Configurar las variables de entrono
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- Renombrar el archivo **.env.templante** a **.env**
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- MOngoDB URL Local:
 
-## Learn More
+```
+mongodb://localhost:27017/teslodb
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Reconstruir los modulos de Node y levantar Nextjs
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+npm install
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Llenar la base de datos de informacion de prueba
 
-## Deploy on Vercel
+- llamar a:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+http://localhost:3000/api/seed
+```

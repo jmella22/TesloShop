@@ -1,5 +1,6 @@
 import React from "react";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 
 import {
   AppBar,
@@ -14,6 +15,12 @@ import {
 import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
 
 export const Navbar = () => {
+  const { asPath } = useRouter();
+
+  const activeLink = (url: string) => {
+    return url === asPath ? "primary" : "info";
+  };
+
   return (
     <AppBar>
       <Toolbar>
@@ -27,17 +34,17 @@ export const Navbar = () => {
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
           <NextLink href={"/category/men"} passHref>
             <Link>
-              <Button>Hombres</Button>
+              <Button color={activeLink("/category/men")}>Hombres</Button>
             </Link>
           </NextLink>
           <NextLink href={"/category/women"} passHref>
             <Link>
-              <Button>Mujeres</Button>
+              <Button color={activeLink("/category/women")}>Mujeres</Button>
             </Link>
           </NextLink>
           <NextLink href={"/category/kid"} passHref>
             <Link>
-              <Button>Niños</Button>
+              <Button color={activeLink("/category/kid")}>Niños</Button>
             </Link>
           </NextLink>
         </Box>
