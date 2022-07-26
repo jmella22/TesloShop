@@ -1,4 +1,4 @@
-import { ICartProduct } from "../../interface";
+import { ICartProduct, IShippingAddress } from "../../interface";
 import { CartState } from "./";
 
 type CartActionType =
@@ -20,7 +20,9 @@ type CartActionType =
         tax: number;
         total: number;
       };
-    };
+    }
+  | { type: "CART_FROM_COOKIES_LOAD_ADDRESS"; payload: IShippingAddress }
+  | { type: "CART_SHIPPINGADDRESS_UPDATE"; payload: IShippingAddress };
 
 export const cartReducer = (
   state: CartState,
@@ -30,6 +32,7 @@ export const cartReducer = (
     case "CART_FROM_COOKIES_STORAGE_LOADING":
       return {
         ...state,
+        isLoaded: true,
         cart: [...action.payload],
       };
 
@@ -65,6 +68,16 @@ export const cartReducer = (
       return {
         ...state,
         ...action.payload,
+      };
+    case "CART_FROM_COOKIES_LOAD_ADDRESS":
+      return {
+        ...state,
+        shippingAddress: action.payload,
+      };
+    case "CART_SHIPPINGADDRESS_UPDATE":
+      return {
+        ...state,
+        shippingAddress: action.payload,
       };
 
     default:

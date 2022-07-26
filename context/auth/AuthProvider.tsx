@@ -1,4 +1,6 @@
 import React, { FC, PropsWithChildren, useEffect, useReducer } from "react";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import axios, { AxiosError } from "axios";
 import Cookie from "js-cookie";
 import { tesloApi } from "../../api";
@@ -17,12 +19,24 @@ const AUTH_INITAL_STATE: AuthState = {
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITAL_STATE);
+  const { data, status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
-    checkToken();
-  }, []);
+    if (status === "authenticated") {
+      console.log(data.user);
+      // dispatch({ type: "AUTH_LOGIN", payload: data.user as IUser });
+    }
+  }, [status, data]);
+
+  // useEffect(() => {
+  //   checkToken();
+  // }, []);
 
   const checkToken = async () => {
+    if (!Cookie.get("token")) {
+      return;
+    }
     try {
       const { data } = await tesloApi.get("/user/validate-token");
       const { token, user } = data;
@@ -30,7 +44,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
       dispatch({ type: "AUTH_LOGIN", payload: user });
     } catch (error) {
       Cookie.remove("token");
-      dispatch({ type: "AUTH_LOGOUT" });
     }
   };
 
@@ -80,6 +93,21 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
+  const loguotUser = () => {
+    Cookie.remove("token");
+    Cookie.remove("cart");
+    Cookie.remove("firstname");
+    Cookie.remove("lastName");
+    Cookie.remove("address");
+    Cookie.remove("address2");
+    Cookie.remove("city");
+    Cookie.remove("country");
+    Cookie.remove("zip");
+    Cookie.remove("phone");
+
+    router.reload();
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -88,6 +116,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         //Methods
         loginUser,
         registerUser,
+        loguotUser,
       }}
     >
       {children}

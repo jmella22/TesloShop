@@ -14,6 +14,17 @@ export interface IProduct {
   updatedAt: string;
 }
 
+export interface IShippingAddress {
+  firstName: string;
+  lastName: string;
+  address: string;
+  address2?: string;
+  zip: string;
+  city: string;
+  country: string;
+  phone: string;
+}
+
 export type ISize = "XS" | "S" | "M" | "L" | "XL" | "XXL" | "XXXL";
 export type IType = "shirts" | "pants" | "hoodies" | "hats";
 export type IGender = "men" | "women" | "kid" | "unisex";
